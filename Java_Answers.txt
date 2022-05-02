@@ -1,6 +1,6 @@
 https://help.efficy.io/edn/projectguides/newEmployeeTestJava_gh78iuh
-
-2.1 Question 1
+--------------------------------------------------------------------------------------------------------------------------
+Question 1
 Please find the possible errors in the code in the 3 classes below and try to correct them.
 
 A)  
@@ -31,6 +31,7 @@ E)
 ProjectBeanCustom 
 String etat is without access modifier which means it will get default access modifier (package provate) check if you need that
 Second constructor will not itialize String etat, default value will be null and it's accesible throw the package so it can cause NullPointExceprion
+--------------------------------------------------------------------------------------------------------------------------
 
 Question 2
 ProjectBeanCustom pbc1 = new ProjectBeanCustom("Projet Recruteemnt", 10, dataSart, dataEnd, "GOING");
@@ -38,9 +39,11 @@ ProjectBeanCustom pbc2 = (ProjectBeanCustom) new ProjectBean ("Projet Recruteemn
 are correct 
 I would use 
 ProjectBeanCustom pbc1 = new ProjectBeanCustom("Projet Recruteemnt", 10, dataSart, dataEnd, "GOING");
+--------------------------------------------------------------------------------------------------------------------------
 
 Question 3
 default (package private)
+--------------------------------------------------------------------------------------------------------------------------
 
 Question 4
 rojectGenericBean <- ProjectBean <- ProjectBeanCustom
@@ -49,8 +52,9 @@ constructor of ProjectBean class. Controll goes to ProjectBean constructor even 
 in the first line, it will call the default not visible  (JVM inserts default constructor if we don't have any)  construcot of ProjectBeanCustom abstract class.
 When the call of ProjectBeanCustom abstract class constructor will end and the controll will go to ProjectBean's constructor, 
 it will initialize the fields with values and the the call will pass to the constructor of ProjectBeanCustom.
+--------------------------------------------------------------------------------------------------------------------------
 
-2.5 Question 5
+Question 5
 How to save the object ('ProjectBean') with the method (< saveBean >) using the following data ?
 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 Date dateFin  = format.parse("12/11/2024");
@@ -60,10 +64,11 @@ ProjectBean projectBean = new ProjectBean("Projet Recrutement", 10, today, dateF
 Create Date objects
 Create ProjectBean object
 use static method of ProjectGenericBean.saveBean(...)
-
+--------------------------------------------------------------------------------------------------------------------------
 
 Question 6 
 10 - Projet Recrutement
+--------------------------------------------------------------------------------------------------------------------------
 
 Question 7
 	@Override
