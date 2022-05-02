@@ -1,0 +1,89 @@
+https://help.efficy.io/edn/projectguides/newEmployeeTestJava_gh78iuh
+
+2.1 Question 1
+Please find the possible errors in the code in the 3 classes below and try to correct them.
+
+A)  
+public abstract class ProjectGenericBean {...}
+BasicBean bean = getBean((HttpSession) session, (String) null, type);
+change (String) null to session.getId() otherwise boolean value of isNew in the method getBean will always be true
+BasicBean bean = getBean((HttpSession) session, session.getId(), type);
+
+B) 
+public abstract class ProjectGenericBean {...}
+Not sure but anyway
+change 
+catch (AccessDeniedException var7) { throw new Exception(type.getSimpleName(), var7); }
+to
+catch (Exception var7) { throw new AccessDeniedException(type.getSimpleName(), var7); }
+AccessDeniedException must be checked exception (because it's IOException) which must be thrown or handled 
+
+C)  
+public  class ProjectBean extends ProjectGenericBean
+change public int numero; to private int numero (to respect encapsulation)
+
+D) 
+public  class ProjectBean extends ProjectGenericBean
+override public abstract String getDurationToString(String flag); method in abstract class because in ProjectBean  class
+it's not overriden or delete method declaration from abstract class;
+
+E)
+ProjectBeanCustom 
+String etat is without access modifier which means it will get default access modifier (package provate) check if you need that
+Second constructor will not itialize String etat, default value will be null and it's accesible throw the package so it can cause NullPointExceprion
+
+Question 2
+ProjectBeanCustom pbc1 = new ProjectBeanCustom("Projet Recruteemnt", 10, dataSart, dataEnd, "GOING");
+ProjectBeanCustom pbc2 = (ProjectBeanCustom) new ProjectBean ("Projet Recruteemnt", 10, dataSart, dataEnd););
+are correct 
+I would use 
+ProjectBeanCustom pbc1 = new ProjectBeanCustom("Projet Recruteemnt", 10, dataSart, dataEnd, "GOING");
+
+Question 3
+default (package private)
+
+Question 4
+rojectGenericBean <- ProjectBean <- ProjectBeanCustom
+1. When we are invoking "new ProjectBeanCustom(...)" the constructor of ProjectBeanCustom class, first of all will call with the super keyword the 
+constructor of ProjectBean class. Controll goes to ProjectBean constructor even if ProjectBean class's constructor doesn't have super keyword JVM will insert it 
+in the first line, it will call the default not visible  (JVM inserts default constructor if we don't have any)  construcot of ProjectBeanCustom abstract class.
+When the call of ProjectBeanCustom abstract class constructor will end and the controll will go to ProjectBean's constructor, 
+it will initialize the fields with values and the the call will pass to the constructor of ProjectBeanCustom.
+
+2.5 Question 5
+How to save the object ('ProjectBean') with the method (< saveBean >) using the following data ?
+DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+Date dateFin  = format.parse("12/11/2024");
+Date today = Calendar.getInstance().getTime();
+ProjectBean projectBean = new ProjectBean("Projet Recrutement", 10, today, dateFin);
+
+Create Date objects
+Create ProjectBean object
+use static method of ProjectGenericBean.saveBean(...)
+
+
+Question 6 
+10 - Projet Recrutement
+
+Question 7
+	@Override
+	public String getDurationToString(String flag) {
+		LocalDate localDateDebut = LocalDate.from(Instant.ofEpochMilli(dateDebut.getTime()).atZone(ZoneId.systemDefault()));
+		LocalDate localDateFin = LocalDate.from(Instant.ofEpochMilli(dateFin.getTime()).atZone(ZoneId.systemDefault()));
+		
+		long durationInDayes = ChronoUnit.DAYS.between(localDateDebut, localDateFin);
+		long durationInMonths = ChronoUnit.MONTHS.between(localDateDebut, localDateFin);
+		long durationInYears = ChronoUnit.YEARS.between(localDateDebut, localDateFin);
+		
+		
+		if(flag.equalsIgnoreCase("YEAR")) {
+			return String.valueOf(durationInYears);
+		}
+		if(flag.equalsIgnoreCase("MONTH")) {
+			return String.valueOf(durationInMonths);
+		}
+		if(flag.equalsIgnoreCase("MONTH")) {
+			return String.valueOf(durationInDayes);
+		}
+		return null;
+	}
